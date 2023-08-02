@@ -23,7 +23,7 @@ runs:
   steps:
     - run: sudo apt-get install jq
       shell: bash
-    - run: chmod +x ./.github/actions/ping-endpoint/main.sh
+    - run: chmod +x ./main.sh
       shell: bash
-    - run: ./.github/actions/ping-endpoint/main.sh ${{ inputs.url }} ${{ inputs.response_field }} ${{ inputs.response_value }} ${{ inputs.interval }} ${{ inputs.timeout }}
+    - run: ./main.sh ${{ inputs.url }} ${{ inputs.response_field }} ${{ inputs.response_value }} ${{ inputs.interval }} ${{ inputs.timeout }}
       shell: bash
