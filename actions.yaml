@@ -1,0 +1,29 @@
+name: 'Ping Endpoint'
+description: 'Ping endpoint until a specific response is returned'
+inputs:
+  url:
+    description: 'URL to ping'
+    required: true
+  response_field:
+    description: 'JSON field to check in the response'
+    required: true
+  response_value:
+    description: 'Expected value of the response field'
+    required: true
+  interval:
+    description: 'Interval between pings in seconds'
+    required: true
+    default: '10'
+  timeout:
+    description: 'Timeout in seconds'
+    required: true
+    default: '900'
+runs:
+  using: 'composite'
+  steps:
+    - run: sudo apt-get install jq
+      shell: bash
+    - run: chmod +x ./.github/actions/ping-endpoint/main.sh
+      shell: bash
+    - run: ./.github/actions/ping-endpoint/main.sh ${{ inputs.url }} ${{ inputs.response_field }} ${{ inputs.response_value }} ${{ inputs.interval }} ${{ inputs.timeout }}
+      shell: bash
