@@ -23,7 +23,7 @@ runs:
   steps:
     - run: sudo apt-get install jq
       shell: bash
-    - run: chmod +x main.sh
+    - run: chmod +x ${{ github.action_path }}/main.sh
       shell: bash
-    - run: main.sh ${{ inputs.url }} ${{ inputs.response_field }} ${{ inputs.response_value }} ${{ inputs.interval }} ${{ inputs.timeout }}
+    - run: ${{ github.action_path }}/main.sh ${{ inputs.url }} ${{ inputs.response_field }} ${{ inputs.response_value }} ${{ inputs.interval }} ${{ inputs.timeout }}
       shell: bash
