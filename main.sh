@@ -6,7 +6,7 @@ response_value="$3"
 interval="$4"
 timeout="$5"
 
-END_TIME=$(($(date +%s) + timeout))
+END_TIME=$(($(date +%s) + $timeout))
 
 while [[ "$(date +%s)" -le "$END_TIME" ]]; do
     response=$(curl -s "$url" || echo "")
