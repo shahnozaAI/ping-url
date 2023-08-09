@@ -8,6 +8,8 @@ timeout="$5"
 
 END_TIME=$(($(date +%s) + $timeout))
 
+echo "Starting pinging..."
+
 while [[ "$(date +%s)" -le "$END_TIME" ]]; do
     response=$(curl -s "$url" || echo "")
 
@@ -18,7 +20,7 @@ while [[ "$(date +%s)" -le "$END_TIME" ]]; do
             echo "Response $response_field matches with given value"
             exit 0
         else
-            echo "Response $response_field does not match with given value"
+            echo "Received $received_value expected $response_value"
         fi
     else
         echo "No response from the server"
