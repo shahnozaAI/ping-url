@@ -27,5 +27,5 @@ runs:
       shell: bash
     - run: echo "Inputs ${{ inputs.url }} ${{ inputs.response_field }} ${{ inputs.response_value }} ${{ inputs.interval }} ${{ inputs.timeout }}"
       shell: bash
-    - run: ${{ github.action_path }}/main.sh ${{ inputs.url }} ${{ inputs.response_field }} ${{ inputs.response_value }} ${{ inputs.interval }} ${{ inputs.timeout }}
+    - run: ${{ github.action_path }}/main.sh ${{ inputs.url }} ${{ inputs.response_field }} '${{ inputs.response_value }}' ${{ inputs.interval }} ${{ inputs.timeout }}
       shell: bash

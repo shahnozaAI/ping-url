@@ -8,7 +8,7 @@ timeout="$5"
 
 END_TIME=$(($(date +%s) + $timeout))
 
-echo "Starting pinging..."
+echo "Starting pinging... from $(date +%s) until $END_TIME"
 
 while [[ "$(date +%s)" -le "$END_TIME" ]]; do
     response=$(curl -s "$url" || echo "")
