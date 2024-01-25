@@ -6,19 +6,24 @@ response_value="$3"
 interval="$4"
 timeout="$5"
 
-END_TIME=$(($(date +%s) + timeout))
+END_TIME=$(($(date +%s) + $timeout))
 
+echo "Starting pinging... from $(date +%s) until $END_TIME"
+echo "Calling:=$url"
 while [[ "$(date +%s)" -le "$END_TIME" ]]; do
+
     response=$(curl -s "$url" || echo "")
 
     if [ "$response" != "" ]; then
-        received_value=$(echo "$response" | jq -r ".$response_field")
+        received_value=$(echo "$response" | jq -r ".$response_field" 2>/dev/null)
+        if [ $? -ne 0 ]; then
+            echo "Server: $url did not respond."
 
-        if [ "$received_value" == "$response_value" ]; then
+        elif [ "$received_value" == "$response_value" ]; then
             echo "Response $response_field matches with given value"
             exit 0
         else
-            echo "Response $response_field does not match with given value"
+            echo "Received $received_value expected $response_value"
         fi
     else
         echo "No response from the server"
@@ -26,6 +31,9 @@ while [[ "$(date +%s)" -le "$END_TIME" ]]; do
 
     sleep "$interval"
 done
+
+echo "Timeout reached without match"
+exit 1
 
 echo "Timeout reached without match"
 exit 1
